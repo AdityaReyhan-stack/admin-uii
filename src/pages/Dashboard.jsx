@@ -7,7 +7,14 @@ import CardRecentTransaction from "../components/Fragments/CardRecentTransaction
 import CardStatistic from "../components/Fragments/CardStatistic";
 import CardExpenseBreakdown from "../components/Fragments/CardExpenseBreakdown";
 
-import { transactions, expensesBreakdowns, bills } from "../data";
+import {
+  transactions,
+  expensesBreakdowns,
+  bills,
+  balances,
+  goals,
+  expensesStatistics,
+} from "../data";
 
 function Dashboard() {
   console.log(transactions);
@@ -15,11 +22,11 @@ function Dashboard() {
     <MainLayout>
       <div className="grid sm:grid-cols-12 gap-6">
         <div className="sm:col-span-4">
-          <CardBalance />
+          <CardBalance data={balances} />
         </div>
 
         <div className="sm:col-span-4">
-          <CardGoal />
+          <CardGoal data={goals} />
         </div>
 
         <div className="sm:col-span-4">
@@ -31,7 +38,7 @@ function Dashboard() {
         </div>
 
         <div className="sm:col-span-8">
-          <CardStatistic />
+          <CardStatistic data={expensesStatistics} />
         </div>
 
         <div className="sm:col-span-8">

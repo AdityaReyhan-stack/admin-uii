@@ -195,3 +195,87 @@ export const bills = [
     icon: <Icon.Other />,
   },
 ];
+
+export const balances = [
+  {
+    id: 1,
+    bankName: "Mastercard",
+    accountType: "Credit Card",
+    accountNumber: "**** **** **** 2598",
+    balance: 24500,
+    logo: <Icon.Mastercard size={40} />,
+  },
+  {
+    id: 2,
+    bankName: "Visa",
+    accountType: "Debit Card",
+    accountNumber: "**** **** **** 7854",
+    balance: 18320,
+    logo: <Icon.Visa size={40} />,
+  },
+];
+
+export const goals = {
+  targetAmount: 20000,
+  presentAmount: 12000,
+};
+
+export const expensesStatistics = {
+  dataKey: "date",
+  series: [
+    {
+      dataKey: "amountThisWeek",
+      label: "This Week",
+      color: "#E8E8E8",
+    },
+    {
+      dataKey: "amountLastWeek",
+      label: "Last Week",
+      color: "#299D91",
+    },
+  ],
+  data: [
+    {
+      id: 1,
+      date: "17 Sun",
+      amountThisWeek: 25000,
+      amountLastWeek: 50000,
+    },
+    {
+      id: 2,
+      date: "18 Mon",
+      amountThisWeek: 50000,
+      amountLastWeek: 10000,
+    },
+    {
+      id: 3,
+      date: "19 Tue",
+      amountThisWeek: 10000,
+      amountLastWeek: 50000,
+    },
+    {
+      id: 4,
+      date: "20 Wed",
+      amountThisWeek: 50000,
+      amountLastWeek: 50000,
+    },
+    {
+      id: 5,
+      date: "21 Thu",
+      amountThisWeek: 50000,
+      amountLastWeek: 10000,
+    },
+    {
+      id: 6,
+      date: "22 Fri",
+      amountThisWeek: 25000,
+      amountLastWeek: 10000,
+    },
+    {
+      id: 7,
+      date: "23 Sat",
+      amountThisWeek: 50000,
+      amountLastWeek: 10000,
+    },
+  ],
+};
