@@ -1,19 +1,29 @@
-import React from "react";
 import LabeledInput from "../Elements/LabeledInput";
 import CheckBox from "../Elements/CheckBox";
 import Button from "../Elements/Button";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function FormSignIn() {
+function FormSignIn({ onSubmit }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(email, password);
+  };
+
   return (
     <>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <LabeledInput
           label="Email address"
           id="email"
           type="email"
           name="email"
           placeholder="hello@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <LabeledInput
@@ -22,6 +32,8 @@ function FormSignIn() {
           type="password"
           name="password"
           placeholder="************"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <CheckBox id="status" name="status" label="Keep me signed in" />
@@ -31,7 +43,6 @@ function FormSignIn() {
 
       <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
         <div className="border border-gray-05 w-full"></div>
-
         <div className="px-2 bg-special-mainBg absolute">or sign in with</div>
       </div>
 

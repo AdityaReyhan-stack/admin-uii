@@ -1,14 +1,24 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
 import Logo from "../Elements/Logo";
 import Input from "../Elements/Input";
 import Icon from "../Elements/Icon";
 import { ThemeContext } from "../../context/themeContext";
+import { AuthContext } from "../../context/authContext";
 
 function MainLayout({ children }) {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  console.log(user);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/signin");
+  };
 
   const themes = [
     { name: "theme-green", bgcolor: "bg-[#299D91]", color: "#299D91" },
@@ -19,12 +29,7 @@ function MainLayout({ children }) {
   ];
 
   const menu = [
-    {
-      id: 1,
-      name: "Overview",
-      icon: <Icon.Overview size={22} />,
-      link: "/",
-    },
+    { id: 1, name: "Overview", icon: <Icon.Overview size={22} />, link: "/" },
     {
       id: 2,
       name: "Balances",
@@ -37,24 +42,14 @@ function MainLayout({ children }) {
       icon: <Icon.Transaction size={22} />,
       link: "/transaction",
     },
-    {
-      id: 4,
-      name: "Bills",
-      icon: <Icon.Bill size={22} />,
-      link: "/bill",
-    },
+    { id: 4, name: "Bills", icon: <Icon.Bill size={22} />, link: "/bill" },
     {
       id: 5,
       name: "Expenses",
       icon: <Icon.Expense size={22} />,
       link: "/expense",
     },
-    {
-      id: 6,
-      name: "Goals",
-      icon: <Icon.Goal size={22} />,
-      link: "/goal",
-    },
+    { id: 6, name: "Goals", icon: <Icon.Goal size={22} />, link: "/goal" },
     {
       id: 7,
       name: "Settings",
@@ -89,7 +84,6 @@ function MainLayout({ children }) {
                 <div className="flex items-center justify-center">
                   {item.icon}
                 </div>
-
                 <span className="hidden sm:block text-sm">{item.name}</span>
               </NavLink>
             ))}
@@ -115,27 +109,25 @@ function MainLayout({ children }) {
 
         {/* Bawah */}
         <div>
-          <NavLink
-            to="/signin"
-            className="flex items-center gap-3 bg-special-bg3 px-4 py-3 rounded-xl hover:bg-primary transition-all"
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 bg-special-bg3 px-4 py-3 rounded-xl hover:bg-primary transition-all cursor-pointer"
           >
             <div className="mx-auto sm:mx-0 text-primary">
               <Icon.Logout />
             </div>
-
             <div className="hidden sm:block">Logout</div>
-          </NavLink>
+          </button>
 
           <div className="border my-8 border-special-bg"></div>
 
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center font-semibold">
-              A
+              {user?.name?.charAt(0).toUpperCase()}
             </div>
 
             <div className="hidden sm:block">
-              <div>Aditya</div>
-
+              <div>{user?.name}</div>
               <span className="text-xs text-gray-300">View Profile</span>
             </div>
 
@@ -149,7 +141,7 @@ function MainLayout({ children }) {
         {/* Header */}
         <header className="h-24 border-b border-gray-200 bg-special-mainBg flex justify-between items-center px-8">
           <div className="flex items-center gap-5">
-            <div className="font-semibold text-defaultBlack">Aditya</div>
+            <div className="font-semibold text-defaultBlack">{user?.name}</div>
 
             <div className="text-gray-500">
               {new Date().toLocaleDateString("en-US", {
