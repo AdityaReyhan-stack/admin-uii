@@ -7,27 +7,47 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const token = localStorage.getItem("token");
 
-    if (token) {
-      try {
-        return jwtDecode(token);
-      } catch (err) {
-        console.error("Invalid token", err);
-        localStorage.removeItem("token");
-        return null;
-      }
+    if (!token) return null;
+
+    // Dummy Login
+    if (token === "dummy-token") {
+      return {
+        name: "Aditya",
+        email: "hello@example.com",
+      };
     }
 
-    return null;
+    // Login JWT asli
+    try {
+      return jwtDecode(token);
+    } catch (err) {
+      console.error("Invalid token", err);
+      localStorage.removeItem("token");
+      return null;
+    }
   });
 
   const login = (token) => {
+    // Dummy Login
+    if (token === "dummy-token") {
+      const dummyUser = {
+        name: "Aditya",
+        email: "hello@example.com",
+      };
+
+      setUser(dummyUser);
+      localStorage.setItem("token", token);
+      return;
+    }
+
+    // Login JWT asli
     try {
       const decoded = jwtDecode(token);
 
       setUser(decoded);
       localStorage.setItem("token", token);
     } catch (err) {
-      console.error("Invalid token");
+      console.error("Invalid token", err);
     }
   };
 

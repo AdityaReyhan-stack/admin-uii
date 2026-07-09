@@ -10,7 +10,7 @@ function Logo(props) {
 
   return (
     <div
-      className={`flex justify-center font-poppins tracking-wide ${variantClasses[variant]}`}
+      className={`flex justify-center font-poppins tracking-wide animate-bounce ${variantClasses[variant]}`}
     >
       <span className="font-bold">FINE</span>
       bank
