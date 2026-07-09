@@ -61,7 +61,7 @@ function FormSignIn({ onSubmit }) {
                     id="password"
                     type="password"
                     label="Password"
-                    placeholder="************"
+                    placeholder="*************"
                   />
                 )}
               </Field>
@@ -89,7 +89,9 @@ function FormSignIn({ onSubmit }) {
             </div>
 
             {/* BUTTON */}
-            <Button>{isSubmitting ? "Loading..." : "Login"}</Button>
+            <Button type="submit">
+              {isSubmitting ? "Loading..." : "Login"}
+            </Button>
           </Form>
         )}
       </Formik>
