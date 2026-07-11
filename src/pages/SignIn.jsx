@@ -4,6 +4,7 @@ import FormSignIn from "../components/Fragments/FormSignIn";
 import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import AppSnackbar from "../components/Elements/AppSnackbar";
+import { loginService } from "../services/authService";
 
 function SignIn() {
   const [snackbar, setSnackbar] = useState({
@@ -24,22 +25,29 @@ function SignIn() {
   };
 
   const handleLogin = async (email, password) => {
-    console.log(email, password);
+    try {
+      const result = await loginService(email, password);
 
-    if (email === "hello@example.com" && password === "12345") {
-      console.log("LOGIN BERHASIL");
+      console.log("LOGIN RESULT =", result);
 
-      login("dummy-token");
+      login(result.token || result.accessToken || result.refreshToken);
+
+      setSnackbar({
+        open: true,
+        message: "Login berhasil",
+        severity: "success",
+      });
+
       navigate("/");
-      return;
-    }
+    } catch (err) {
+      console.log("LOGIN ERROR =", err);
 
-    // ganti alert dengan snackbar
-    setSnackbar({
-      open: true,
-      message: "Email atau Password salah",
-      severity: "error",
-    });
+      setSnackbar({
+        open: true,
+        message: err.msg || "Login gagal",
+        severity: "error",
+      });
+    }
   };
 
   return (

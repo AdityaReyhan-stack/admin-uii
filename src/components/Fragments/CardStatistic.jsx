@@ -10,7 +10,7 @@ function CardStatistic(props) {
       title="Statistics"
       desc={
         <>
-          <select className="font-bold text-2xl ">
+          <select className="font-bold text-2xl dark:text-white dark:bg-gray-800">
             <option>Weekly Comparison</option>
           </select>
           <BarsDataset dataset={data} />

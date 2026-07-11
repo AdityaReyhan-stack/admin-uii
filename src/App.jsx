@@ -8,6 +8,8 @@ import SignUp from "./pages/SignUp";
 import Error from "./pages/Error";
 import Dashboard from "./pages/Dashboard";
 import Balance from "./pages/balance";
+import Expenses from "./pages/Expenses";
+import Bill from "./pages/Bill"; // tambahkan import ini
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -49,6 +51,24 @@ const myRouter = createBrowserRouter([
     element: (
       <RequireAuth>
         <Balance />
+      </RequireAuth>
+    ),
+  },
+
+  {
+    path: "/expenses",
+    element: (
+      <RequireAuth>
+        <Expenses />
+      </RequireAuth>
+    ),
+  },
+
+  {
+    path: "/bill",
+    element: (
+      <RequireAuth>
+        <Bill />
       </RequireAuth>
     ),
   },

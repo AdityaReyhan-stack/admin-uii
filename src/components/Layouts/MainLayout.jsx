@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import Logo from "../Elements/Logo";
 import Input from "../Elements/Input";
@@ -12,12 +14,21 @@ function MainLayout({ children }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [loggingOut, setLoggingOut] = useState(false);
 
   console.log(user);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/signin");
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 800)); // beri jeda agar transisi terasa halus
+      logout();
+      navigate("/signin");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoggingOut(false);
+    }
   };
 
   const themes = [
@@ -47,7 +58,7 @@ function MainLayout({ children }) {
       id: 5,
       name: "Expenses",
       icon: <Icon.Expense size={22} />,
-      link: "/expense",
+      link: "/expenses",
     },
     { id: 6, name: "Goals", icon: <Icon.Goal size={22} />, link: "/goal" },
     {
@@ -139,11 +150,13 @@ function MainLayout({ children }) {
       {/* Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <header className="h-24 border-b border-gray-200 bg-special-mainBg flex justify-between items-center px-8">
+        <header className="h-24 border-b border-gray-200 dark:border-gray-700 bg-special-mainBg dark:bg-gray-900 flex justify-between items-center px-8">
           <div className="flex items-center gap-5">
-            <div className="font-semibold text-defaultBlack">{user?.name}</div>
+            <div className="font-semibold text-defaultBlack dark:text-white">
+              {user?.name}
+            </div>
 
-            <div className="text-gray-500">
+            <div className="text-gray-500 dark:text-gray-400">
               {new Date().toLocaleDateString("en-US", {
                 month: "long",
                 day: "numeric",
@@ -169,8 +182,18 @@ function MainLayout({ children }) {
         </header>
 
         {/* Main */}
-        <main className="flex-1 bg-special-mainBg p-8">{children}</main>
+        <main className="flex-1 bg-special-mainBg dark:bg-gray-900 p-8">
+          {children}
+        </main>
       </div>
+
+      {/* Backdrop saat proses logout */}
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loggingOut}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }

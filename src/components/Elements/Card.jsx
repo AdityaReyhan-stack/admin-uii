@@ -5,7 +5,7 @@ function Card(props) {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex justify-between items-center text-gray-02 mb-2">
+      <div className="flex justify-between items-center text-gray-02 dark:text-gray-400 mb-2">
         <div className="text-2xl">{title}</div>
 
         {link && (
@@ -13,7 +13,7 @@ function Card(props) {
         )}
       </div>
 
-      <div className="bg-white rounded-lg shadow-xl px-6 py-5 flex-1">
+      <div className="bg-white dark:bg-gray-800 dark:text-white rounded-lg shadow-xl px-6 py-5 flex-1">
         {desc}
       </div>
     </div>

@@ -36,7 +36,7 @@ function CardGoal(props) {
             <div className="ms-2">
               <div>Target Achieved</div>
 
-              <div className="font-bold text-xl text-black">
+              <div className="font-bold text-xl text-black dark:text-white">
                 ${data.presentAmount}
               </div>
             </div>
@@ -48,7 +48,7 @@ function CardGoal(props) {
             <div className="ms-2">
               <div>This Month Target</div>
 
-              <div className="font-bold text-xl text-black">
+              <div className="font-bold text-xl text-black dark:text-white">
                 ${data.targetAmount}
               </div>
             </div>
